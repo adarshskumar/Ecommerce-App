@@ -4,15 +4,12 @@ const { resolve, reject } = require('promise');
 
 module.exports={
     addProduct:(product,callback)=>{
-        console.log("line");
         console.log(product);
-        db.get().collection('product').insertOne(product).then((data)=>{
-             
+        db.get().collection('product').insertOne(product).then((data)=>{   //insertOne() is promise fn that's why .then((data))        
              if(data){
-                console.log( data.insertedId);
+                console.log(data.insertedId);
                 callback(data.insertedId);
-             }
-            
+             }    
         })
     },
     getAllProducts:()=>{

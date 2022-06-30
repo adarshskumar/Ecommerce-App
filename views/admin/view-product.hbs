@@ -1,4 +1,4 @@
-<section>
+<section>   {{!-- bootstrap table --}}
     <div class="container">
         <div class="row">
             <a href="/admin/add-product" class="btn btn-success mt-5 mb-5 ml-auto">Add Product</a>
@@ -8,6 +8,7 @@
     <tr>
       <th scope="col">No.</th>
       <th scope="col">Title</th>
+      <th scope="col">Prize</th>
       <th scope="col">Category</th>
       <th scope="col">Description</th>
       <th>Image</th>
@@ -18,9 +19,10 @@
     <tr>
       <th scope="row">1</th>
       <td>{{this.name}}</td>
+      <td>{{this.prize}}</td>
       <td>{{this.cat}}</td>
       <td>{{this.description}}</td>
-      <td><img style="width:50px; height:50px" src="/product-images/{{this.id}}.jpg" alt=""></td>
+      <td><img style="width:50px; height:50px" src="/product-images/{{this._id}}.jpg" alt=""></td>
     </tr>
     {{/each}}
   </tbody>

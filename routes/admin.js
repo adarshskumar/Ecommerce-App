@@ -40,19 +40,19 @@ router.get('/', function(req, res, next) {
   })
   
 });
-router.get('/add-product',function(req,res){
+router.get('/add-product',function(req,res){ //retreiving the form
   res.render('admin/add-product')
 });
 
-router.post('/add-product',(req,res)=>{
-  console.log(req.body);
-  console.log("req.files.Img");
-  console.log(req.files.img);
+router.post('/add-product',(req,res)=>{ //form posting
+  // console.log(req.body); 
+  // console.log(req.files.img);
 
-  productHelpers.addProduct(req.body,(id)=>{
+  productHelpers.addProduct(req.body,(id)=>{ //here req.body contains the data we added in add product page 
+    //call back fn (id)=> {}
     let image=req.files.img
     console.log(id);
-    image.mv('./public/product-images'+id+'.jpg',(err,done)=>{
+    image.mv('./public/product-images/'+id+'.jpg',(err)=>{
       if(!err){
         res.render("admin/add-product")
       }
