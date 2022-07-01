@@ -15,13 +15,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" ref="#">Cart</a>
                     </li>
+                    {{#if user}}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Orders</a>
                     </li>
+                    {{/if}}
 
                 </ul>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle float-left" type="button" id="dropdownMenuButton"
+                <div class="dropdown mx-auto">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{#if user}}
                             {{user.name}}
