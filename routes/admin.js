@@ -66,4 +66,11 @@ router.post('/add-product',(req,res)=>{ //form posting
 
 })
 
+router.get('/delete-product/:id',(req,res)=>{
+  let proId = req.params.id
+  // let proId = req.query.id
+  console.log(proId)
+  // console.log(req.query.name)
+})
+
 module.exports = router;
