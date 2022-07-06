@@ -1,7 +1,8 @@
+const { response } = require('express');
 var express = require('express');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
-var productHelper=require('../helpers/product-helpers')
+// var objectId
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -70,7 +71,16 @@ router.get('/delete-product/:id',(req,res)=>{
   let proId = req.params.id
   // let proId = req.query.id
   console.log(proId)
+  productHelpers.deleteProduct(proId).then((response)=>{
+    res.redirect('/admin/') 
+  })
   // console.log(req.query.name)
+})
+
+router.get('/edit-product/:id',async(req,res)=>{
+  let product= await productHelpers.getProductDetails(req.params.id)
+  console.log(product)
+  res.render('admin/edit-product',{product}) //kittiya product passing to the page edit-product
 })
 
 module.exports = router;
