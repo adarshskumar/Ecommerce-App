@@ -1,6 +1,8 @@
 var db = require('../config/connection')
 var collection = require('../config/collection');
 const { resolve, reject } = require('promise');
+const { ObjectId } = require('mongodb');
+const { response } = require('express');
 var objectId = require('mongodb').ObjectID
 module.exports = {
     addProduct: (product, callback) => {
@@ -33,6 +35,19 @@ module.exports = {
                 console.log(product)
                 resolve(product)
             })
+        })
+    },
+    updateProduct:(proId,proDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(proId)},{$set:{
+                name: proDetails.name,
+                description: proDetails.description,
+                price: proDetails.price,
+                category: proDetails.category
+            }
+        }).then((response)=>{
+            resolve()
+        })
         })
     }
 }

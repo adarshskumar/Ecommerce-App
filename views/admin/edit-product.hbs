@@ -1,7 +1,7 @@
 <section>
     <div class="container mt-4">
         <h2 class="text-center">Edit Product</h2>
-        <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+        <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name="name" aria-describedby="emailHelp"
@@ -21,10 +21,16 @@
             </div>
             <div class="form-group">
                 <label for="Image">Image</label>
-                <img src="/product-images/{{product._id}}.jpg" alt="" style="width:100px; height:auto;">
-                <input type="file" class="form-control" name="img">
+                <img src="/product-images/{{product._id}}.jpg" alt="" style="width:100px; height:auto;" id="imgView" >
+                <input type="file" class="form-control" name="img" onchange="viewImage(event)">
             </div>
             <button type="submit" class="btn btn-success mt-4">Submit</button>
         </form>
     </div>
 </section>
+
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

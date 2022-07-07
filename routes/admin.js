@@ -60,9 +60,7 @@ router.post('/add-product',(req,res)=>{ //form posting
       else {
         console.log(err);
       }
-
     })
-
   })
 
 })
@@ -82,5 +80,15 @@ router.get('/edit-product/:id',async(req,res)=>{
   console.log(product)
   res.render('admin/edit-product',{product}) //kittiya product passing to the page edit-product
 })
-
+router.post('/edit-product/:id',(req,res)=>{
+  console.log(req.params.id)
+  id=req.params.id
+  productHelpers.updateProduct(req.params.id,req.body).then(()=>{
+    if(req.files.img){
+      let img=req.files.img
+      img.mv('./public/product-images/'+id+'.jpg')
+    }
+    res.redirect('/admin')
+  })
+})
 module.exports = router;

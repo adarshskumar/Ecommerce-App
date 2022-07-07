@@ -27,6 +27,8 @@ router.post('/signup',(req,res)=>{
   console.log(req.body)
   userHelpers.doSignUp(req.body).then((response)=>{
     console.log(response);
+    req.session.loggedIn=true
+    req.session.user=response.user
   })
 })
 router.post('/login',(req,res)=>{
