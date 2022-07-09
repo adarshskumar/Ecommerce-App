@@ -36,6 +36,7 @@ router.post('/login',(req,res)=>{
     if(response.status){
       req.session.loggedIn=true
       req.session.user=response.user
+      console.log(req.session.user._id);
       res.redirect('/')
     } else {
       req.session.loginErr = "Invalid UserName or Password"
@@ -57,9 +58,16 @@ const verifyLogin =(req,res,next)=>{ //middleware
   }
 }
 
-router.get('/cart',verifyLogin,(req,res)=>{
-
+router.get('/cart',verifyLogin,async (req,res)=>{
+  console.log(req.session.user_id)
+  let products=await userHelpers.getCartProducts(req.session.user_id)
+  console.log(products)
   res.render('user/cart')
+})
+
+router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
+  userHelpers.addToCart(req.params.id,req.session.user._id)
+  res.redirect('/')
 })
 
 module.exports = router;
