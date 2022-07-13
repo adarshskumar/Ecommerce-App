@@ -59,10 +59,10 @@ const verifyLogin =(req,res,next)=>{ //middleware
 }
 
 router.get('/cart',verifyLogin,async (req,res)=>{
-  console.log(req.session.user_id)
-  let products=await userHelpers.getCartProducts(req.session.user_id)
+  console.log(req.session.user._id)
+  let products=await userHelpers.getCartProducts(req.session.user._id)
   console.log(products)
-  res.render('user/cart')
+  res.render('user/cart',{products,user:req.session.user})//passing kittiya products to cart page
 })
 
 router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
