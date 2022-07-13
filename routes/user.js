@@ -4,11 +4,15 @@ var router = express.Router();
 const productHelpers = require('../helpers/product-helpers');
 const userHelpers= require('../helpers/user-helpers')
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',async function(req, res, next) { //error-async
   let user=req.session.user
+  let cartCount = 0
+  if(req.session.user) {
+  cartCount = await userHelpers.getCartCount(req.session.user._id)
+  }
   productHelpers.getAllProducts().then((products)=>{
     // console.log(products)
-    res.render('user/view-products',{products,user})
+    res.render('user/view-products',{products,user,cartCount})
   })
 });
 router.get('/login',(req,res)=>{

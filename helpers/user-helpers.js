@@ -5,6 +5,7 @@ const { resolve, reject } = require('promise')
 const { CART_COLLECTION } = require('../config/collection')
 const { ObjectId } = require('mongodb')
 const { response } = require('express')
+const { use } = require('../routes/user')
 var objectId = require('mongodb').ObjectID
 
 
@@ -90,4 +91,12 @@ module.exports = {
             resolve(cartItems[0].cartItems)
         })
     },
+    getCartCount:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let cart=await db.get().collection(collection.CART_COLLECTION).findOne({use:objectId(userId)})
+            if(cart){
+                count = cart.products.length
+            }
+        })
+    }
 }
