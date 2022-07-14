@@ -10,7 +10,7 @@ router.get('/',async function(req, res, next) { //error-async
   if(req.session.user) {
   cartCount = await userHelpers.getCartCount(req.session.user._id)
   }
-  console.log(cartCount)
+  // console.log(cartCount)
   productHelpers.getAllProducts().then((products)=>{
     // console.log(products)
     res.render('user/view-products',{products,user,cartCount})
@@ -76,5 +76,6 @@ router.get('/add-to-cart/:id',(req,res)=>{
   res.json({status:true})
   // res.redirect('/')
 })
+
 
 module.exports = router;
