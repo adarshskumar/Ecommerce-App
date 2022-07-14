@@ -10,6 +10,7 @@ router.get('/',async function(req, res, next) { //error-async
   if(req.session.user) {
   cartCount = await userHelpers.getCartCount(req.session.user._id)
   }
+  console.log(cartCount)
   productHelpers.getAllProducts().then((products)=>{
     // console.log(products)
     res.render('user/view-products',{products,user,cartCount})
@@ -69,9 +70,11 @@ router.get('/cart',verifyLogin,async (req,res)=>{
   res.render('user/cart',{products,user:req.session.user})//passing kittiya products to cart page
 })
 
-router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
+router.get('/add-to-cart/:id',(req,res)=>{
+  console.log("api call")
   userHelpers.addToCart(req.params.id,req.session.user._id)
-  res.redirect('/')
+  res.json({status:true})
+  // res.redirect('/')
 })
 
 module.exports = router;
