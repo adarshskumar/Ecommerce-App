@@ -146,13 +146,12 @@ module.exports = {
     changeProductQuantity: ((details) => {
         details.count = parseInt(details.count)
         details.quantity=parseInt(details.quantity)
-
         return new Promise((resolve, reject) => {
-            if(details.count==-1 && details.quantity==1){
+            if(details.count==-1 && details.quantity==1){//currently quantity is 1 and again pressed the button
                 db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart)},
                 {
                     $pull:{products:{item:objectId(details.product)}} //products matching is already done here. that's why we are not passing products
-                }).then((response)=>{
+                }).then(()=>{
                     resolve({removeProduct:true})
                 })
             } else {
@@ -165,5 +164,12 @@ module.exports = {
                     })
             }
         })
-    })
+    }),
+    // removeProduct: (prodId) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.CART_COLLECTION).deleteOne({ _id: objectId(prodId) }).then((response) => {
+    //             resolve(response)
+    //         })
+    //     })   
+    // },
 }

@@ -65,9 +65,13 @@ const verifyLogin =(req,res,next)=>{ //middleware
 
 router.get('/cart',verifyLogin,async (req,res)=>{
   console.log(req.session.user._id)
+  let cartCount = 0
+  if(req.session.user) {
+  cartCount = await userHelpers.getCartCount(req.session.user._id)
+  }
   let products=await userHelpers.getCartProducts(req.session.user._id)
-  console.log(products)
-  res.render('user/cart',{products,user:req.session.user})//passing kittiya products to cart page
+  // console.log(products)
+  res.render('user/cart',{products,user:req.session.user,cartCount})//passing kittiya products to cart page
 })
 
 router.get('/add-to-cart/:id',(req,res)=>{
@@ -78,9 +82,17 @@ router.get('/add-to-cart/:id',(req,res)=>{
 })
 
 router.post('/change-product-quantity',(req,res,next)=>{
-  console.log(req.body)
-  userHelpers.changeProductQuantity(req.body).then((response)=>{
+  console.log(req.body) //here req.body contains data passed from ajax
+  userHelpers.changeProductQuantity(req.body).then((response)=>{ 
     res.json(response)
+  })
+})
+
+router.get('/remove-product/:id',(req,res)=>{
+  let proId = req.params.id
+  console.log(proId)
+  userHelpers.removeProduct(proId).then((response)=>{
+    res.redirect('/cart/') 
   })
 })
 
